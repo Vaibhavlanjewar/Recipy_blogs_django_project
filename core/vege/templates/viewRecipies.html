@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block start %}
+<div class="container text-center my-4">
+    <span><a href="/" class="btn btn-link">Home</a></span>
+    <span><a href="/contact/" class="btn btn-link">Contact</a></span>
+    <span><a href="/recipies/" class="btn btn-link">Recipies</a></span>
+</div>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-3">
+            <h2>Index</h2>
+            <ul class="list-group">
+                {% for recipy in recipies %}
+                    <li class="list-group-item"><a href="#recipy-{{ forloop.counter }}">{{ forloop.counter }}. {{ recipy.recipy_name }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-md-9">
+            <h1>Recipes</h1>
+            {% for recipy in recipies %}
+                <div id="recipy-{{ forloop.counter }}" class="card mb-4">
+                    <img src="{{ recipy.recipy_image.url }}" class="card-img-top" alt="{{ recipy.recipy_name }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ recipy.recipy_name }}</h5>
+                        <p class="card-text">{{ recipy.recipy_description }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

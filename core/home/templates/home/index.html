@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block start %}
+
+    <header class="container mt-4 padding-1px solid black">
+    <div><span><a href="/contact/">Contact</a></span> <span><a href="/about/">about</a></span></div>      
+   <header>
+    <div class="container">
+        <h1>Hello guys, I am Vaibhav Lanjewar</h1>
+        <h4>Data from views to this page by using context</h4>
+       
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Sr.No</th>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Can Vote</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in peoples %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ p.name }}</td>
+                    <td>{{ p.age }}</td>
+                    <td>
+                        {% if p.age >= 18 %}
+                        👍
+                        {% else %}
+                        👎
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+{% endblock%}
