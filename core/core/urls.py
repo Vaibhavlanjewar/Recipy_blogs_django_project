@@ -32,6 +32,7 @@ urlpatterns = [
     path('recipies/',recipies,name='recipies'),
     path('viewRecipies/',viewRecipies,name='viewRecipies'),
     path('delete_recipy/<id>',delete_recipy,name='delete_recipy'),
+    path('update_recipies/<id>',update_recipies,name='update_recipies'),
     # home -app
     path('about/',about,name='about'),
     path('contact/',contact,name="contact"),

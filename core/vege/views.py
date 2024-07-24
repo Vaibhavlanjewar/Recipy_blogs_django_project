@@ -27,7 +27,13 @@ def recipies(request):
                           )
       return redirect('/recipies/')
       
-    queryset=Recipy.objects.all()  
+    queryset=Recipy.objects.all() 
+    
+   #  search from frontend to backend 
+    if request.GET.get('search'):
+       queryset=queryset.filter(recipy_name__icontains=request.GET.get('search'))
+       
+    
     context={'recipies':queryset}  # to show the backend data on frontend by using context 
     return render(request,'recipies.html',context)
 
@@ -42,3 +48,25 @@ def delete_recipy(request,id):
    queryset=Recipy.objects.all()
    queryset.filter(id=id).delete()
    return redirect('/recipies/')
+
+ 
+def update_recipies(request,id):
+   queryset=Recipy.objects.all()
+
+   if request.method=="POST":
+      data=request.POST
+      
+      recipy_name=data.get('recipy_name')
+      recipy_description=data.get('recipy_description')
+      recipy_image=request.FILES['recipy_image']
+
+      queryset.recipy_name=recipy_name
+      queryset.recipy_description=recipy_description
+      if recipy_image:
+         queryset.recipy_image=recipy_image
+         queryset.recipy_image
+
+      queryset.save() 
+      return redirect('/recipies/')   
+   context={'recipies':queryset}
+   return render(request,'update_recipies.html',context)

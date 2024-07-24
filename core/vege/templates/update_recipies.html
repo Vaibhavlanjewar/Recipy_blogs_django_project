@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block start %}
+<div class="text-center my-4">
+    <span><a href="/" class="btn btn-link">Home</a></span>
+    <span><a href="/contact/" class="btn btn-link">Contact</a></span>
+    <span><a href="/viewRecipies/" class="btn btn-link">View Recipes_user </a></span>
+    <span><a href="/recipies/" class="btn btn-link">Recipy_admin</a></span>
+</div>      
+
+<div class="container mt-5">
+    
+    <form class="col-md-6 mx-auto card p-4 shadow-lg" method="post" enctype="multipart/form-data">
+        {% csrf_token %} 
+        <h2 class="text-center mb-4">Update Recipe</h2>
+        <hr>
+        <div class="mb-3">
+            <label for="recipy_name" class="form-label">Recipe Name</label>
+            <input type="text" name="recipy_name" value={{recipies.recipy_name}}  >
+        </div>
+
+        <div class="mb-3">
+            <label for="recipy_description" class="form-label">Recipe Description</label>
+            <textarea class="form-control"  name="recipy_description" rows="3" required>{{recipies.recipy_description}}</textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="recipy_image" class="form-label">Recipe Image</label>
+            <input type="file" class="form-control" value={{recipies.recipy_image}} name="recipy_image" required>
+        </div>
+
+        <button type="submit" class="btn btn-success w-100">Update Recipe</button>
+    </form>
+</div>
+
+
+
+{% endblock %}
