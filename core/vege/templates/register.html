@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block start %}
+<div class="text-center my-4">
+    <span><a href="/" class="btn btn-link">Home</a></span>
+    <span><a href="/contact/" class="btn btn-link">Contact</a></span>
+    <span><a href="/viewRecipies/" class="btn btn-link">View Recipes</a></span>
+</div>      
+
+<div class="container mt-5">
+<hr>
+    <form class="col-md-6 mx-auto card p-4 shadow-lg" method="post" enctype="multipart/form-data">
+        {% csrf_token %} 
+        <h2 class="text-center mb-4">Register</h2>
+        <hr>
+        {% if messages %}
+        <div class="alert alert-primary" role="alert">
+            {% for message in messages %}
+            {{ message }}
+            {% endfor %}
+          </div>
+        <ul class="messages">
+        </ul>
+        {% endif %}
+
+        <div class="mb-3">
+            <label >First Name</label>
+            <input type="text" class="form-control" name="first_name" placeholder="Enter first name">
+          </div>
+   
+          <div class="mb-3">
+            <label>Last Name</label>
+            <input type="text" class="form-control"  name="last_name"  placeholder="Enter last name">
+          </div>
+            <div class="mb-3">
+              <label >Username</label>
+              <input type="text" class="form-control"  name="username"  placeholder="Enter Username">
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1">Password</label>
+              <input type="password" class="form-control" name="password" id="exampleInputPassword1" placeholder="Password">
+            </div>
+         
+            <p>Already have account <a href='/login_page/' >login</a> </p>
+
+            <button type="submit" class="btn btn-primary">REGISTER</button>
+           
+     
+    </form>
+
+</div>
+
+
+{% endblock %}

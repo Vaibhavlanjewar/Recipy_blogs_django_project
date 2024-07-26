@@ -27,12 +27,17 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
 
-    path('',home,name='home'),
+    # path('',home,name='home'),
+      path('',recipies,name='recipies'),
     # vege -app
     path('recipies/',recipies,name='recipies'),
     path('viewRecipies/',viewRecipies,name='viewRecipies'),
     path('delete_recipy/<id>',delete_recipy,name='delete_recipy'),
     path('update_recipies/<id>',update_recipies,name='update_recipies'),
+    # login in vege
+    path('login_page/',login_page,name='login_page'),
+    path('register/',register,name='register'),
+    path('logout_page/',logout_page,name='logout_page'),
     # home -app
     path('about/',about,name='about'),
     path('contact/',contact,name="contact"),
