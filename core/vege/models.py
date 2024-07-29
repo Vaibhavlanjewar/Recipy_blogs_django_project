@@ -14,4 +14,5 @@ class Recipy(models.Model):
     recipy_name=models.CharField(max_length=100)
     recipy_description=models.TextField()
     recipy_image=models.ImageField(upload_to="recipy")
+    recipy_view_count=models.IntegerField(default=1)
     
