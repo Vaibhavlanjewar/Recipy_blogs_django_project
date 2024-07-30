@@ -1,34 +1,65 @@
 {% extends "base.html" %}
 
-{% block start %}
-<div class="container text-center my-4">
-    <span><a href="/" class="btn btn-link">Home</a></span>
-    <span><a href="/contact/" class="btn btn-link">Contact</a></span>
-    <span><a href="/recipies/" class="btn btn-link">Recipies</a></span>
-</div>
+{% block content %}
+<div class="text-center my-4">
+    <span><a href="{% url 'home' %}" class="btn btn-link">Home</a></span>
+    <span><a href="{% url 'contact' %}" class="btn btn-link">Contact</a></span>
+    <span><a href="{% url 'recipes' %}" class="btn btn-link">View Recipes</a></span>
+</div>      
 
 <div class="container mt-5">
-    <div class="row">
-        <div class="col-md-3">
-            <h2>Index</h2>
-            <ul class="list-group">
-                {% for recipy in recipies %}
-                    <li class="list-group-item"><a href="#recipy-{{ forloop.counter }}">{{ forloop.counter }}. {{ recipy.recipy_name }}</a></li>
-                {% endfor %}
-            </ul>
+    <form class="col-md-8 mx-auto card p-4 shadow-lg" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h2 class="text-center mb-4">Add Recipe</h2>
+        <hr>
+        <div class="mb-3">
+            <label for="recipe_name" class="form-label">Recipe Name</label>
+            <input type="text" name="recipe_name" class="form-control" id="recipe_name" required>
         </div>
-        <div class="col-md-9">
-            <h1>Recipes</h1>
-            {% for recipy in recipies %}
-                <div id="recipy-{{ forloop.counter }}" class="card mb-4">
-                    <img src="{{ recipy.recipy_image.url }}" class="card-img-top" alt="{{ recipy.recipy_name }}">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ recipy.recipy_name }}</h5>
-                        <p class="card-text">{{ recipy.recipy_description }}</p>
-                    </div>
-                </div>
+
+        <div class="mb-3">
+            <label for="recipe_description" class="form-label">Recipe Description</label>
+            <textarea class="form-control" name="recipe_description" id="recipe_description" rows="4" required></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="recipe_image" class="form-label">Recipe Image</label>
+            <input type="file" class="form-control" name="recipe_image" id="recipe_image" required>
+        </div>
+
+        <button type="submit" class="btn btn-success w-100">Add Recipe</button>
+    </form>
+</div>
+
+<hr>
+<h2 class="text-center mt-5">Recipes List</h2>
+
+<div class="container mt-3">
+    <table class="table table-bordered table-hover">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">No</th>
+                <th scope="col">Recipe Name</th>
+                <th scope="col">Recipe Description</th>
+                <th scope="col">Image</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for recipe in recipes %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ recipe.recipe_name }}</td>
+                    <td>{{ recipe.recipe_description }}</td>
+                    <td>
+                        <img src="{{ recipe.recipe_image.url }}" alt="{{ recipe.recipe_name }}" class="img-thumbnail" style="height: 70px; object-fit: cover;">
+                    </td>
+                    <td>
+                        <a href="{% url 'delete_recipe' recipe.id %}" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
             {% endfor %}
-        </div>
-    </div>
+        </tbody>
+    </table>
 </div>
 {% endblock %}

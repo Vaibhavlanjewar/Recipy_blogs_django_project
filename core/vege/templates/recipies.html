@@ -1,29 +1,28 @@
- {% extends "base.html" %}
+{% extends "base.html" %}
+
 {% block start %}
-
-
 <div class="text-center my-4">
-    
     <span><a href="/" class="btn btn-link">Home</a></span>
     <span><a href="/contact/" class="btn btn-link">Contact</a></span>
     <span><a href="/viewRecipies/" class="btn btn-link">View Recipes</a></span>
 </div>      
 
 <div class="container mt-5">
-<hr>
     <form class="col-md-6 mx-auto card p-4 shadow-lg" method="post" enctype="multipart/form-data">
         {% csrf_token %} 
+        {% comment %} name of user {% endcomment %}
+        {% comment %} <h3>Hii {{request.user.first_name}}</h3> {% endcomment %}
         <h2 class="text-center mb-4">Add Recipe</h2>
         <hr>
         <div class="mb-3">
             <label for="recipy_name" class="form-label">Recipe Name</label>
-            <input type="text" name="recipy_name"  class="form-control" required>
+            <input type="text" name="recipy_name" class="form-control" required>
         </div>
 
         <div class="mb-3">
             <label for="recipy_description" class="form-label">Recipe Description</label>
             <textarea class="form-control" name="recipy_description" rows="3" required></textarea>
-        </div> 
+        </div>
 
         <div class="mb-3">
             <label for="recipy_image" class="form-label">Recipe Image</label>
@@ -32,25 +31,13 @@
 
         <button type="submit" class="btn btn-success w-100">Add Recipe</button>
     </form>
-    <hr>
-     {% comment %} search  {% endcomment %}
-    <div class="mt-5">
-        <div class="mx-auto col-6"> 
-            <form>
-            <div class="mb-3">
-                <label for="recipy_name" class="form-label">Search Food</label>
-                <input type="text" name="search" value="{{recipies.recipy_name}}""  >
-            </div>
-      <button type="submit" class="btn btn-primary">search</button>
-      </form>
-        </div>
 </div>
 
 <hr>
 <h2 class="text-center mt-5">See Recipes</h2>
 
-<div class="container mt-5">
-    <table mt-5  class="table table-bordered table-hover">
+<div class="container mt-3">
+    <table class="table table-bordered table-hover">
         <thead class="thead-light">
             <tr>
                 <th scope="col">No</th>
@@ -71,7 +58,6 @@
                     </td>
                     <td>
                         <a href="/delete_recipy/{{recipy.id}}" class="btn btn-danger">Delete</a>
-                        <a href="/update_recipies/{{recipy.id}}" class="btn btn-success">Udpate</a>
                     </td>
                 </tr>
             {% endfor %}
